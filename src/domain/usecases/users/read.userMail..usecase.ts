@@ -5,8 +5,8 @@ import  UserRepository  from "../../../adapters/repositories/user.repository";
 
 class readUser implements IUsecase {
     constructor (private _repository: IUserRepository){}
-    async execute(data: { username:string, email:string }): Promise<IUserEntity | undefined> {
-        return await this._repository.readUserRepeated(data);
+    async execute(data: {email:string }): Promise<IUserEntity | undefined> {
+        return await this._repository.readByMail(data);
     }
     
 }

@@ -12,6 +12,7 @@ export class UserRoutes extends CommonRoutesConfig {
         this.app.route('/api/user')
             .post( 
                 userMiddleware.validateRegister,
+                userMiddleware.validateUserNameRepeated,
                 userMiddleware.validateUserMailRepeated,
                 userController.createUser
             )
