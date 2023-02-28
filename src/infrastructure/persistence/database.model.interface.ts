@@ -6,5 +6,6 @@ export interface IDatabaseModel extends Idatabase {
     list(type: any, includes?: object): any,
     login(type: any, data: any): any,
     selectQuery(sql: string, replacements: any): any,
-    readByWhere(type: any, userid: any, includes?: object): any
+    readByWhere(type: any, userid: any, includes?: object): any,
+    readbyMail(type: any, data: any): any,
 }

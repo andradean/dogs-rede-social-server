@@ -11,6 +11,7 @@ class userController {
     async createUser(req: express.Request, res: express.Response) {
         try { 
             const user = await createUserUsecase.execute(req.body)
+            log(user)
             return res.status(200).send()
         } catch(error) {
             return res.status(500).send(getErrorMessage(error))

@@ -99,5 +99,15 @@ export class MysqlDatabase implements IDatabaseModel {
             }
         );
     }
+
+    readbyMail(model: Sequelize.ModelCtor<Sequelize.Model<any, any>> , data: {email: string, password: string}): any {
+        try {
+            return model.findOne({
+                where: {email: data.email}
+            })
+        } catch (err) {
+            throw new Error((err as Error).message);
+        }
+    }
     
 }

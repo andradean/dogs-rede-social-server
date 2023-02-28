@@ -11,6 +11,15 @@ export class UserRepository implements IUserRepository {
         private _database:IDatabaseModel,
         private _userModel: Sequelize.ModelCtor<Sequelize.Model<any, any>>
         ){}
+    async readUserRepeated(resource: IUserEntity): Promise<IUserEntity | undefined> {
+        try {
+            const user = await this._database.readbyMail(this._userModel, resource) 
+            return user
+        } catch (error) {
+          console.error(error)
+        }
+    }
+    
 
     async create(resource: IUserEntity): Promise<IUserEntity> {
         const userModel = await this._database.create(this._userModel, resource)
