@@ -16,7 +16,10 @@ export class UserRoutes extends CommonRoutesConfig {
                 userMiddleware.validateUserMailRepeated,
                 userController.createUser
             )
-       
+          this.app.route('/jwt-auth/v1/token')
+          .post(
+            userController.login
+          )
         return this.app
     }
     

@@ -1,6 +1,6 @@
 import express from 'express'
 import { validate, Joi, ValidationError } from 'express-validation'
-import readUserRepeatedUsecase from '../../../domain/usecases/users/read.userMail..usecase'
+import readUserRepeatedUsecase from '../../../domain/usecases/users/read.userMail.usecase'
 import readUsernameUsecase from '../../../domain/usecases/users/read.username.usecase'
 
 class UserMiddleware {

@@ -65,10 +65,10 @@ export class MysqlDatabase implements IDatabaseModel {
         }
     }
 
-    login(model: Sequelize.ModelCtor<Sequelize.Model<any, any>> , data: {email: string, password: string}): any {
+    login(model: Sequelize.ModelCtor<Sequelize.Model<any, any>> , data: {username: string, password: string}): any {
         try {
             return model.findOne({
-                where: {email: data.email}
+                where: {username: data.username}
             })
         } catch (err) {
             throw new Error((err as Error).message);
@@ -100,7 +100,7 @@ export class MysqlDatabase implements IDatabaseModel {
         );
     }
 
-    readbyMail(model: Sequelize.ModelCtor<Sequelize.Model<any, any>> , data: {email: string}): any {
+    readByMail(model: Sequelize.ModelCtor<Sequelize.Model<any, any>> , data: {email: string}): any {
         try {
             return model.findOne({
                 where: {email: data.email}

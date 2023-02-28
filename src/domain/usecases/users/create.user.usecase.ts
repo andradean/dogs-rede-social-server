@@ -5,7 +5,7 @@ import  UserRepository  from '../../../adapters/repositories/user.repository'
 
 
 
-class createUser implements IUsecase {
+class createUserUseCase implements IUsecase {
    constructor (private _repository: IUserRepository) {}
    
    async execute(data: IUserEntity): Promise<IUserEntity | undefined> {
@@ -14,4 +14,4 @@ class createUser implements IUsecase {
     
 }
 
-export default new createUser( UserRepository )
+export default new createUserUseCase( UserRepository )

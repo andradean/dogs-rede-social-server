@@ -1,5 +1,6 @@
 export interface IUserEntity {
+    userid?: number
     username: string, 
-    email: string,
-    senha?: string
+    email?: string,
+    password: string
 }

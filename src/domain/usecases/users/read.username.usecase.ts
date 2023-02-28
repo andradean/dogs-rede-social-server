@@ -3,7 +3,7 @@ import { IUserEntity } from '../../entities/users/user.entity'
 import { IUserRepository } from "../../repositories/user.repository.interface";
 import  UserRepository  from "../../../adapters/repositories/user.repository";
 
-class readUser implements IUsecase {
+class readUserUseCase implements IUsecase {
     constructor (private _repository: IUserRepository){}
     async execute(data: {username: string} ): Promise<IUserEntity | undefined> {
         return await this._repository.readByUsername(data);
@@ -11,4 +11,4 @@ class readUser implements IUsecase {
     
 }
 
-export default new readUser( UserRepository )
+export default new readUserUseCase( UserRepository )
