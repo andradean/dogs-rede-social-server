@@ -1,6 +1,8 @@
 import express from 'express'
 import debug from 'debug';
 import  jwt  from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
+
 
 import createUserUsecase from '../../../domain/usecases/users/create.user.usecase'
 import loginUserUsecase from '../../../domain/usecases/users/login.user.usecase'
@@ -14,7 +16,9 @@ const log: debug.Debugger = debug('app: users-controller')
 class userController {
     async createUser(req: express.Request, res: express.Response) {
         try { 
-            const user = await createUserUsecase.execute(req.body)
+            const { username, email, password } = req.body
+            const hash = bcrypt.hashSync(password, 10)
+            const user = await createUserUsecase.execute({username, email, password: hash})
             log(user)
             return res.status(200).send()
         } catch(error) {
