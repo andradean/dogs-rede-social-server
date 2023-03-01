@@ -18,6 +18,9 @@ export class UserRoutes extends CommonRoutesConfig {
             )
           this.app.route('/jwt-auth/v1/token')
           .post(
+            userMiddleware.validateLoginbody,
+            userMiddleware.validateUserNameExists,
+            userMiddleware.validatePassword,
             userController.login
           )
         return this.app
