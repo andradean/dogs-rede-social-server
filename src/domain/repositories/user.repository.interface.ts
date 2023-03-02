@@ -8,5 +8,6 @@ export interface IUserRepository {
    // deleteById (resourceId: number): Promise<void>,
    // list (): Promise<IUserEntity[]>
     login (resource: IUserEntity): Promise<IUserEntity>
+    //autoLogin (resource: {}): Promise<IUserEntity>
 
 }

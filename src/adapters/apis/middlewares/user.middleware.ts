@@ -1,8 +1,8 @@
 import express from 'express'
 import { validate, Joi, ValidationError } from 'express-validation'
 import loginUseCase from '../../../domain/usecases/users/login.user.usecase'
-import readUserRepeatedUsecase from '../../../domain/usecases/users/read.userMail.usecase'
-import readUsernameUsecase from '../../../domain/usecases/users/read.username.usecase'
+import readUserRepeatedUsecase from '../../../domain/usecases/users/read.user.mail.usecase'
+import readUsernameUsecase from '../../../domain/usecases/users/read.user.name.usecase'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import secret from '../../../infrastructure/config/secret.config';
@@ -86,12 +86,17 @@ class UserMiddleware {
     }
     
     async auth (req: express.Request, res: express.Response, next: express.NextFunction) {
-        const { authorization } = req.headers
+        let { Authorization } = req.headers
 
-        if(!authorization) {
+        if(!Authorization) {
             res.status(401).send("Não autorizado")
         }
-        const parts = authorization?.split(' ')
+        
+        if(Array.isArray(Authorization)) {
+            Authorization = Authorization.join(" ")
+        }  
+        
+        const parts = Authorization?.split(" ")
 
         if(parts?.length !== 2) {
             res.status(401).send("Não autorizado")
@@ -105,7 +110,7 @@ class UserMiddleware {
             if(error) {
                 res.status(401).send("Não autorizado")
             }
-            
+            console.log(decoded)
             return next()
         })
 

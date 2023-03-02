@@ -40,6 +40,33 @@ class userController {
             return res.status(500).send(getErrorMessage(error))
         }
     }
-}
+
+    async autoLogin (req: express.Request, res: express.Response) {
+        try {
+            const auth  = req.headers.authorization
+            if(!auth) {
+                return res.status(401).send("Não autorizado")
+            }
+            console.log(auth)
+            const parts = auth.split(" ")
+            const [schema, token] = parts
+
+            jwt.verify(token, secret, (error, decoded) => {
+                if(error) {
+                    res.status(401).send("Não autorizado")
+                }
+                console.log(decoded)
+
+                return res.status(200).send()
+            })
+        } catch(error) {
+            console.log(error)
+
+        }
+    
+    }
+        }
+    
+
 
 export default new userController()

@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
         private _database:IDatabaseModel,
         private _userModel: Sequelize.ModelCtor<Sequelize.Model<any, any>>
         ){}
+        
     async login(resource: IUserEntity) {
         try {
             const user = await this._database.login(this._userModel, resource)

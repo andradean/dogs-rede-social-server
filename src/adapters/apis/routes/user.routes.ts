@@ -23,6 +23,11 @@ export class UserRoutes extends CommonRoutesConfig {
             userMiddleware.validatePassword,
             userController.login
           )
+
+        this.app.route('/jwt-auth/v1/token/validate')
+        .post(
+            userController.autoLogin
+        )
         return this.app
     }
     
