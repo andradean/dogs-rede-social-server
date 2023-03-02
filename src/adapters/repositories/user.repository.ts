@@ -11,6 +11,10 @@ export class UserRepository implements IUserRepository {
         private _database:IDatabaseModel,
         private _userModel: Sequelize.ModelCtor<Sequelize.Model<any, any>>
         ){}
+    async readById(resourceId: number): Promise<IUserEntity | undefined> {
+        const user = await this._database.read(this._userModel, resourceId)
+        return user
+    }
         
     async login(resource: IUserEntity) {
         try {

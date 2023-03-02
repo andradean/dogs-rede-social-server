@@ -28,6 +28,11 @@ export class UserRoutes extends CommonRoutesConfig {
         .post(
             userController.autoLogin
         )
+        this.app.route('/api/user')
+        .get(
+            userMiddleware.auth,
+            userController.getUserById
+        )
         return this.app
     }
     

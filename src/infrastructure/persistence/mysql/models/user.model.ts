@@ -2,7 +2,7 @@ import { MysqlDatabase } from "../mysql.database";
 import { DataTypes } from "sequelize";
 
 export default MysqlDatabase.getInstance().createModel('user', {
-    indexId: {
+    userid: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,

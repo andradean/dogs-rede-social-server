@@ -8,12 +8,24 @@ import createUserUsecase from '../../../domain/usecases/users/create.user.usecas
 import loginUserUsecase from '../../../domain/usecases/users/login.user.usecase'
 import { getErrorMessage } from '../helpers/errors.helper.adapter';
 import secret from '../../../infrastructure/config/secret.config';
+import readUserUsecase from '../../../domain/usecases/users/read.user.usecase';
 
 
 const log: debug.Debugger = debug('app: users-controller')
 
 
 class userController {
+    async getUserById(req: express.Request, res: express.Response){
+        try {
+            const userid = Number(req.userid)
+            console.log(userid)
+            const user = await readUserUsecase.execute({ userid })
+            res.status(200).send(user)
+        } catch(error) {
+            return res.status(500).send("Erro interno, tente mais tarde")
+        }
+
+    }
     async createUser(req: express.Request, res: express.Response) {
         try { 
             const { username, email, password } = req.body
@@ -29,12 +41,13 @@ class userController {
     async login (req: express.Request, res: express.Response) {
         try {
             const user = await loginUserUsecase.execute(req.body) 
+            console.log(user.userid)
             const token = jwt.sign({
                 userid: user.userid,
                 username: user.username,
                 email: user.email
             }, secret)
-
+            console.log("ESSE", user)
             return res.status(200).send({data: user, token})
         } catch(error) {
             return res.status(500).send(getErrorMessage(error))

@@ -1,11 +1,16 @@
 import express from 'express'
 import { validate, Joi, ValidationError } from 'express-validation'
+//import IAuth from './helpers/auth.helper'
 import loginUseCase from '../../../domain/usecases/users/login.user.usecase'
 import readUserRepeatedUsecase from '../../../domain/usecases/users/read.user.mail.usecase'
 import readUsernameUsecase from '../../../domain/usecases/users/read.user.name.usecase'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import secret from '../../../infrastructure/config/secret.config';
+
+interface IAuth extends express.Request {
+    userid?:string
+}
 
 
 class UserMiddleware {
@@ -86,37 +91,38 @@ class UserMiddleware {
     }
     
     async auth (req: express.Request, res: express.Response, next: express.NextFunction) {
-        let { Authorization } = req.headers
-
-        if(!Authorization) {
-            res.status(401).send("Não autorizado")
-        }
-        
-        if(Array.isArray(Authorization)) {
-            Authorization = Authorization.join(" ")
-        }  
-        
-        const parts = Authorization?.split(" ")
-
-        if(parts?.length !== 2) {
-            res.status(401).send("Não autorizado")
-        }
-        const [schema, token] = parts!
-
-        if( schema !== "Bearer") {
-            res.status(401).send("Não autorizado")
-        }
-        jwt.verify(token, secret, (error, decoded) => {
-            if(error) {
-                res.status(401).send("Não autorizado")
+            const auth  = req.headers.authorization
+            if(!auth) {
+                return res.status(401).send("Não autorizado")
             }
-            console.log(decoded)
-            return next()
-        })
+            console.log(auth)
+            const parts = auth.split(" ")
+            const [schema, token] = parts
 
+            jwt.verify(token, secret, (error, decoded) => {
+                if (error || !decoded) {
+                    return res.status(401).send({ message: 'Token inválido.' });
+                  }
+                  if(typeof decoded === 'string') {
+                                    return res.status(401).send({ message: 'Token inválido.' });
+    
+                  }
+                  
+                  console.log(decoded)
+                  const userid = decoded.userid
+                  if(!userid) {
+                    console.log("SEM USER ID")
+                  }
+                  
+                  req.userid = decoded.userid;
+                  return next();
+
+            })
+    }
+    
     }
 
-}
+
 
     
 
