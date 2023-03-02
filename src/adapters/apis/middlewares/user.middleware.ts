@@ -4,6 +4,9 @@ import loginUseCase from '../../../domain/usecases/users/login.user.usecase'
 import readUserRepeatedUsecase from '../../../domain/usecases/users/read.userMail.usecase'
 import readUsernameUsecase from '../../../domain/usecases/users/read.username.usecase'
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import secret from '../../../infrastructure/config/secret.config';
+
 
 class UserMiddleware {
     validateRegister = validate({
@@ -81,6 +84,33 @@ class UserMiddleware {
             }
 
     }
+    
+    async auth (req: express.Request, res: express.Response, next: express.NextFunction) {
+        const { authorization } = req.headers
+
+        if(!authorization) {
+            res.status(401).send("Não autorizado")
+        }
+        const parts = authorization?.split(' ')
+
+        if(parts?.length !== 2) {
+            res.status(401).send("Não autorizado")
+        }
+        const [schema, token] = parts!
+
+        if( schema !== "Bearer") {
+            res.status(401).send("Não autorizado")
+        }
+        jwt.verify(token, secret, (error, decoded) => {
+            if(error) {
+                res.status(401).send("Não autorizado")
+            }
+            
+            return next()
+        })
+
+    }
+
 }
 
     
