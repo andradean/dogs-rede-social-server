@@ -1,7 +1,7 @@
 import express from 'express'
 import { validate, Joi, ValidationError } from 'express-validation'
 //import IAuth from './helpers/auth.helper'
-import loginUseCase from '../../../domain/usecases/users/login.user.usecase'
+import loginUseCase from '../../../domain/usecases/auth/login.user.usecase'
 import readUserRepeatedUsecase from '../../../domain/usecases/users/read.user.mail.usecase'
 import readUsernameUsecase from '../../../domain/usecases/users/read.user.name.usecase'
 import bcrypt from 'bcrypt'
@@ -104,15 +104,14 @@ class UserMiddleware {
                     return res.status(401).send({ message: 'Token inválido.' });
                   }
                   if(typeof decoded === 'string') {
-                                    return res.status(401).send({ message: 'Token inválido.' });
+                     return res.status(401).send({ message: 'Token inválido.' });
     
                   }
-                  
                   console.log(decoded)
                   const userid = decoded.userid
                   if(!userid) {
-                    console.log("SEM USER ID")
-                  }
+                    return res.status(401).send({ message: 'Token inválido.' });
+                 }
                   
                   req.userid = decoded.userid;
                   return next();

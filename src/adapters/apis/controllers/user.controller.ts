@@ -5,7 +5,7 @@ import bcrypt from 'bcrypt'
 
 
 import createUserUsecase from '../../../domain/usecases/users/create.user.usecase'
-import loginUserUsecase from '../../../domain/usecases/users/login.user.usecase'
+import loginUserUsecase from '../../../domain/usecases/auth/login.user.usecase'
 import { getErrorMessage } from '../helpers/errors.helper.adapter';
 import secret from '../../../infrastructure/config/secret.config';
 import readUserUsecase from '../../../domain/usecases/users/read.user.usecase';
