@@ -39,7 +39,7 @@ export class UserRoutes extends CommonRoutesConfig {
          .post(
            userMiddleware.auth,
            photoMiddleware.uploadFile().single('img'),
-           photoController.getPhoto
+           photoController.postPhoto
          )
         return this.app
     }
