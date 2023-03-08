@@ -45,6 +45,11 @@ export class UserRoutes extends CommonRoutesConfig {
          .get(
             photoController.listPhoto
          )
+         this.app.route('/api/photo/:id')
+         .get(
+            photoController.readPhoto
+         )
+
         return this.app
     }
     

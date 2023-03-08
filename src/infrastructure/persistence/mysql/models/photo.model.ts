@@ -2,7 +2,7 @@ import { MysqlDatabase } from "../mysql.database";
 import { DataTypes } from "sequelize";
 
 export default MysqlDatabase.getInstance().createModel('photo', {
-    photoid: {
+    id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -11,6 +11,10 @@ export default MysqlDatabase.getInstance().createModel('photo', {
     userid: {
         type: DataTypes.INTEGER,
         
+    },
+    author: {
+        type: DataTypes.STRING,
+
     },
     src: { 
       type: DataTypes.STRING,

@@ -4,18 +4,20 @@ import fs from 'fs';
 import path from 'path';
 import createPhotoUsecase from '../../../domain/usecases/photo/create.photo.usecase';
 import listPhotoUsecase from '../../../domain/usecases/photo/list.photo.usecase';
+import readPhotoUsecase from '../../../domain/usecases/photo/read.photo.usecase';
 
 const log: debug.Debugger = debug('app: users-controller')
 
 class photoController {
     async postPhoto (req: express.Request, res: express.Response) {
         const userid = Number(req.userid)
+        const author = req.username
         const img = req.file?.filename
         const { nome, idade, peso } = req.body
         
-        const photo = await createPhotoUsecase.execute({userid, src:`http://localhost:8000/${img}`, title: nome, idade, peso})
+        const photo = await createPhotoUsecase.execute({userid, author, src:`http://localhost:8000/${img}`, title: nome, idade, peso})
         console.log(photo)
-        console.log(nome, idade, peso, img)
+        console.log(nome, idade, peso, img, author)
         return res.json(req.file?.filename)
     }
 
@@ -33,6 +35,16 @@ class photoController {
         res.send(photos)
 
     }
+
+    async readPhoto (req: express.Request, res: express.Response) {
+        const photo = await readPhotoUsecase.execute({
+            id: Number(req.params.id)
+        })
+
+        res.status(200).send(photo)
+    }
+
+    
     
 }
 

@@ -11,6 +11,7 @@ export default {
             userid:  {
                 type: Sequelize.DataTypes.INTEGER,
             },
+            author: Sequelize.DataTypes.STRING,
             src: Sequelize.DataTypes.STRING,
             title: Sequelize.DataTypes.STRING,
             idade: Sequelize.DataTypes.INTEGER,

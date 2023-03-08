@@ -108,6 +108,7 @@ class UserMiddleware {
                     return res.status(401).send({ message: 'Token inválido.' });
                  }
                   
+                  req.username = decoded.username
                   req.userid = decoded.userid;
                   return next();
 
