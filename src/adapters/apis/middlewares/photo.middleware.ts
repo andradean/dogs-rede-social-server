@@ -9,6 +9,7 @@ class photoMiddleware {
                     cb(null, path.resolve("uploads"));
                 },
                 filename: (req, file, cb) => {
+                    const userid = req.userid!
                     cb(null, `${Date.now()}-${file.originalname.toLocaleLowerCase()}`)
                 },
             })
