@@ -6,5 +6,5 @@ export interface IPhotoRepository {
    // readByUsername (resource: {}): Promise<IPhotoEntity | undefined>,
     create (resource: IPhotoEntity): Promise<IPhotoEntity>,
    // deleteById (resourceId: number): Promise<void>,
-   // list (): Promise<IUserEntity[]>
+    list (resource: {}): Promise<IPhotoEntity[]>
 }

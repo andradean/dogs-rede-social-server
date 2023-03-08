@@ -15,6 +15,7 @@ const debugLog: debug.IDebugger = debug('app');
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static('uploads'));
 
 const loggerOptions: expressWinston.LoggerOptions = {
     transports: [new winston.transports.Console()],
@@ -30,7 +31,6 @@ if(!process.env.DEBUG) {
 }
 
 app.use(expressWinston.logger(loggerOptions));
-
 routes.push(new UserRoutes(app));
 
 

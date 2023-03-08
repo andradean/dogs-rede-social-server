@@ -6,16 +6,28 @@ export default MysqlDatabase.getInstance().createModel('photo', {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        field: 'photoid'
+        field: 'id'
     },
     userid: {
         type: DataTypes.INTEGER,
         
     },
-    img: DataTypes.STRING,
-    name: DataTypes.STRING,
-    age: DataTypes.NUMBER,
-    weight: DataTypes.NUMBER,
+    src: { 
+      type: DataTypes.STRING,
+      field: 'src'
+    },
+    title: { 
+      type: DataTypes.STRING,
+      field: 'title'
+    },
+    idade: {
+      type: DataTypes.NUMBER,
+      field:'idade'
+    },
+    peso:{ 
+        type: DataTypes.NUMBER,
+        field: 'peso'
+    },
     createdAt: {
         type: DataTypes.DATE,
         field: 'created_at'

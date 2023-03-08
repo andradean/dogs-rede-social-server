@@ -3,7 +3,7 @@ import * as Sequelize from 'sequelize';
 export default {
     up: (queryInterface: Sequelize.QueryInterface) => {
         return queryInterface.createTable('photo', {
-            photoid:  {
+            id:  {
                 type: Sequelize.DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
@@ -11,10 +11,10 @@ export default {
             userid:  {
                 type: Sequelize.DataTypes.INTEGER,
             },
-            img: Sequelize.DataTypes.STRING,
-            name: Sequelize.DataTypes.STRING,
-            age: Sequelize.DataTypes.INTEGER,
-            weight: Sequelize.DataTypes.INTEGER,
+            src: Sequelize.DataTypes.STRING,
+            title: Sequelize.DataTypes.STRING,
+            idade: Sequelize.DataTypes.INTEGER,
+            peso: Sequelize.DataTypes.INTEGER,
             createdAt: {
                 type: Sequelize.DataTypes.DATE,
                 field: 'created_at'

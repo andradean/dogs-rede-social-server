@@ -18,6 +18,12 @@ export class PhotoRepository implements IPhotoRepository {
 
         return photoModel
     }
+
+    async list(resource: {}): Promise<IPhotoEntity[]> {
+        const photoModel = await this._database.list(this._photoModel, resource)
+
+        return photoModel
+    }
 }
 
 export default new PhotoRepository (

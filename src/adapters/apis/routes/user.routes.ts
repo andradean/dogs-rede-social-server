@@ -41,6 +41,10 @@ export class UserRoutes extends CommonRoutesConfig {
            photoMiddleware.uploadFile().single('img'),
            photoController.postPhoto
          )
+         this.app.route('/api/photo')
+         .get(
+            photoController.listPhoto
+         )
         return this.app
     }
     
