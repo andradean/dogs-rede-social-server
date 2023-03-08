@@ -8,11 +8,6 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import secret from '../../../infrastructure/config/secret.config';
 
-interface IAuth extends express.Request {
-    userid?:string
-}
-
-
 class UserMiddleware {
     validateRegister = validate({
         body: Joi.object({
@@ -119,8 +114,9 @@ class UserMiddleware {
             })
     }
     
-    }
 
+    }
+  
 
 
     

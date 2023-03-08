@@ -1,7 +1,9 @@
 import { CommonRoutesConfig } from "./common.routes.config";
 import  express  from "express";
 import userController from '../controllers/user.controller'
+import photoController from "../controllers/photo.controller";
 import userMiddleware from "../middlewares/user.middleware";
+import photoMiddleware from "../middlewares/photo.middleware";
 
 export class UserRoutes extends CommonRoutesConfig {
     constructor ( app: express.Application) {
@@ -33,6 +35,12 @@ export class UserRoutes extends CommonRoutesConfig {
             userMiddleware.auth,
             userController.getUserById
         )
+        this.app.route('/api/photo')
+         .post(
+           userMiddleware.auth,
+           photoMiddleware.uploadFile().single('img'),
+           photoController.getPhoto
+         )
         return this.app
     }
     
