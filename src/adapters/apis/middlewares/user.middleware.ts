@@ -2,8 +2,8 @@ import express from 'express'
 import { validate, Joi, ValidationError } from 'express-validation'
 //import IAuth from './helpers/auth.helper'
 import loginUseCase from '../../../domain/usecases/auth/login.user.usecase'
-import readUserRepeatedUsecase from '../../../domain/usecases/users/read.user.mail.usecase'
-import readUsernameUsecase from '../../../domain/usecases/users/read.user.name.usecase'
+import readUserMailUseCase from '../../../domain/usecases/users/read.user.mail.usecase'
+import readUsernameUseCase from '../../../domain/usecases/users/read.user.name.usecase'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import secret from '../../../infrastructure/config/secret.config';
@@ -26,11 +26,11 @@ class UserMiddleware {
 
     async validateUserMailRepeated (req: express.Request, res: express.Response, next: express.NextFunction){
         let resourceEmail: string = req.body.email
-        const user = await readUserRepeatedUsecase.execute(
+        const mail = await readUserMailUseCase.execute(
             {email: resourceEmail}
         )
-        console.log(user)
-        if (user === null) {
+        console.log(mail)
+        if (mail === null) {
             next()
         } else { 
             res.status(409).send({error:"Esse email e/ou usuario já existe"})
@@ -40,7 +40,7 @@ class UserMiddleware {
 
     async validateUserNameRepeated (req: express.Request, res: express.Response, next: express.NextFunction){
         let resourceUsername: string = req.body.username
-        const user = await readUsernameUsecase.execute(
+        const user = await readUsernameUseCase.execute(
             {username: resourceUsername}
         )
         console.log(user)
@@ -55,7 +55,7 @@ class UserMiddleware {
     async validateUserNameExists (req: express.Request, res: express.Response, next: express.NextFunction) {
         try {
         let resourceUsername = req.body.username
-        const user = await readUsernameUsecase.execute({
+        const user = await readUsernameUseCase.execute({
             username: resourceUsername
         })
 

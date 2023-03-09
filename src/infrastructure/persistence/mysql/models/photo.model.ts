@@ -1,7 +1,7 @@
 import { MysqlDatabase } from "../mysql.database";
 import { DataTypes } from "sequelize";
 
-export default MysqlDatabase.getInstance().createModel('photo', {
+export default MysqlDatabase.getInstance().createModel('photos', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,

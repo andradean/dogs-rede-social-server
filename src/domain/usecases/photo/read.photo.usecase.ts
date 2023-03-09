@@ -3,9 +3,7 @@ import { IPhotoEntity } from "../../entities/photo/photo.entity";
 import { IPhotoRepository } from "../../repositories/photo.repository.interface";
 import photoRepository from "../../../adapters/repositories/photo.repository";
 
-
-
-class createPhotoUseCase implements IUsecase {
+class readPhotoUseCase implements IUsecase {
    constructor (private _repository: IPhotoRepository) {}
    
    async execute ( data: {id: number} ): Promise<IPhotoEntity | undefined> {
@@ -14,4 +12,4 @@ class createPhotoUseCase implements IUsecase {
     
 }
 
-export default new createPhotoUseCase( photoRepository )
+export default new readPhotoUseCase( photoRepository )

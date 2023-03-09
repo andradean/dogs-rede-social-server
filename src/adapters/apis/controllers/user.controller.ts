@@ -8,7 +8,7 @@ import createUserUsecase from '../../../domain/usecases/users/create.user.usecas
 import loginUserUsecase from '../../../domain/usecases/auth/login.user.usecase'
 import { getErrorMessage } from '../helpers/errors.helper.adapter';
 import secret from '../../../infrastructure/config/secret.config';
-import readUserUsecase from '../../../domain/usecases/users/read.user.usecase';
+import autoLoginUseCase from '../../../domain/usecases/users/autologin.user.usecase';
 
 
 const log: debug.Debugger = debug('app: users-controller')
@@ -19,7 +19,7 @@ class userController {
         try {
             const userid = Number(req.userid)
             console.log(userid)
-            const user = await readUserUsecase.execute({ userid })
+            const user = await autoLoginUseCase.execute({ userid })
             res.status(200).send(user)
         } catch(error) {
             return res.status(500).send("Erro interno, tente mais tarde")
@@ -34,7 +34,7 @@ class userController {
             log(user)
             return res.status(200).send()
         } catch(error) {
-            return res.status(500).send(getErrorMessage(error))
+            return res.status(500).send("Erro interno, tente mais tarde")
            
         }
     }
@@ -50,7 +50,7 @@ class userController {
             console.log("ESSE", user)
             return res.status(200).send({data: user, token})
         } catch(error) {
-            return res.status(500).send(getErrorMessage(error))
+            return res.status(500).send("Erro interno, tente mais tarde")
         }
     }
 
@@ -73,7 +73,7 @@ class userController {
                 return res.status(200).send()
             })
         } catch(error) {
-            console.log(error)
+            return res.status(500).send("Erro interno, tente mais tarde")
 
         }
     

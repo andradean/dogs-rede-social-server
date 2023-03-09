@@ -3,11 +3,7 @@ import { IPhotoRepository } from "../../repositories/photo.repository.interface"
 import { IUsecase } from "../usecase.interface";
 import photoRepository from "../../../adapters/repositories/photo.repository";
 
-
-
-
-class ListPhotoUseCase implements IUsecase {
-
+class listPhotoUseCase implements IUsecase {
     constructor(private _repository: IPhotoRepository) {}
 
     async execute(data: {offset: number, limit: number}): Promise<IPhotoEntity[] | undefined> {
@@ -15,6 +11,6 @@ class ListPhotoUseCase implements IUsecase {
     }
 }
 
-export default new ListPhotoUseCase(
+export default new listPhotoUseCase(
     photoRepository
 );

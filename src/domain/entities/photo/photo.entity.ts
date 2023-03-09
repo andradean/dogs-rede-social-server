@@ -1,4 +1,5 @@
 export interface IPhotoEntity {
+    id?:number
     userid:number,
     author?: string,
     src?: string,

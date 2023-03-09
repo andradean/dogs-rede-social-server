@@ -3,8 +3,6 @@ import { IUserEntity } from "../../entities/users/user.entity";
 import { IUserRepository } from "../../repositories/user.repository.interface";
 import  UserRepository  from '../../../adapters/repositories/user.repository'
 
-
-
 class createUserUseCase implements IUsecase {
    constructor (private _repository: IUserRepository) {}
    

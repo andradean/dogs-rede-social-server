@@ -4,6 +4,8 @@ import userController from '../controllers/user.controller'
 import photoController from "../controllers/photo.controller";
 import userMiddleware from "../middlewares/user.middleware";
 import photoMiddleware from "../middlewares/photo.middleware";
+import commentController from "../controllers/comment.controller";
+import commentMiddleware from "../middlewares/comment.middleware";
 
 export class UserRoutes extends CommonRoutesConfig {
     constructor ( app: express.Application) {
@@ -18,38 +20,43 @@ export class UserRoutes extends CommonRoutesConfig {
                 userMiddleware.validateUserMailRepeated,
                 userController.createUser
             )
-          this.app.route('/jwt-auth/v1/token')
-          .post(
-            userMiddleware.validateLoginbody,
-            userMiddleware.validateUserNameExists,
-            userMiddleware.validatePassword,
-            userController.login
+        this.app.route('/jwt-auth/v1/token')
+            .post(
+                userMiddleware.validateLoginbody,
+                userMiddleware.validateUserNameExists,
+                userMiddleware.validatePassword,
+                userController.login
           )
 
         this.app.route('/jwt-auth/v1/token/validate')
-        .post(
-            userController.autoLogin
+            .post(
+                userController.autoLogin
         )
         this.app.route('/api/user')
-        .get(
-            userMiddleware.auth,
-            userController.getUserById
+            .get(
+                userMiddleware.auth,
+                userController.getUserById
         )
         this.app.route('/api/photo')
-         .post(
-           userMiddleware.auth,
-           photoMiddleware.uploadFile().single('img'),
-           photoController.postPhoto
-         )
-         this.app.route('/api/photo')
-         .get(
-            photoController.listPhoto
-         )
-         this.app.route('/api/photo/:id')
-         .get(
-            photoController.readPhoto
-         )
-
+            .post(
+                userMiddleware.auth,
+                photoMiddleware.uploadFile().single('img'),
+                photoController.createPhoto
+        )
+        this.app.route('/api/photo')
+            .get(
+                photoController.getPhotos
+        )
+        this.app.route('/api/photo/:id')
+            .get(
+                photoController.getPhotoById
+        )
+        this.app.route('/api/comment/:id') 
+            .post (
+             commentMiddleware.validateComment,
+             userMiddleware.auth,
+             commentController.createComment
+        )
         return this.app
     }
     
